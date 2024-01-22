@@ -1,4 +1,4 @@
-package com.example.instagram_project;
+package com.example.instagram_project.config;
 
 import com.amazonaws.auth.AWSStaticCredentialsProvider;
 import com.amazonaws.auth.BasicAWSCredentials;
