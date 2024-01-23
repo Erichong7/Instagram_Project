@@ -8,6 +8,9 @@ cloud:
       accessKey: ${ACCESS_KEY}
       secretKey: ${SECRET_KEY}
 
+jwt:
+
+
 spring:
   datasource:
     url: ${DB_URL}
@@ -30,9 +33,3 @@ spring:
       location: /users/charming/temp # ???? ??? ??? ???? ??? ?? (default: WAS? ??)
       max-file-size: 100MB # ?? ??? ?? ??? (default: 1MB)
       max-request-size: 100MB # ?? ??? ?? ??? (default: 10MB)
-
-  security:
-    jwt:
-      header: Authorization
-      secret: c2lsdmVybmluZS10ZWNoLXNwcmluZy1ib290LWp3dC10dXRvcmlhbC1zZWNyZXQtc2lsdmVybmluZS10ZWNoLXNwcmluZy1ib290LWp3dC10dXRvcmlhbC1zZWNyZXQK
-      token-validity-in-seconds: 86400

@@ -1,5 +1,6 @@
 package com.example.instagram_project.controller;
 
+import com.example.instagram_project.dto.MemberLoginDTO;
 import com.example.instagram_project.dto.MemberSignUpRequestDTO;
 import com.example.instagram_project.service.MemberService;
 import lombok.RequiredArgsConstructor;
@@ -18,5 +19,10 @@ public class MemberController {
     @PostMapping("/join")
     public ResponseEntity<Long> join(@Valid @RequestBody MemberSignUpRequestDTO request) throws Exception {
         return ResponseEntity.ok(memberService.signUp(request));
+    }
+
+    @GetMapping("/login")
+    public ResponseEntity<String> login(@RequestBody MemberLoginDTO memberLoginDTO) {
+        return ResponseEntity.ok(memberService.login(memberLoginDTO));
     }
 }

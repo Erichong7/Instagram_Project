@@ -1,6 +1,6 @@
 package com.example.instagram_project.dto;
 
-import com.example.instagram_project.auth.Authority;
+import com.example.instagram_project.config.auth.Authority;
 import com.example.instagram_project.domain.Member;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -37,7 +37,7 @@ public class MemberSignUpRequestDTO {
                 .email(email)
                 .nickname(nickname)
                 .password(password)
-                .authority(Authority.ROLE_USER)
+                .authority(Authority.USER)
                 .build();
     }
 }

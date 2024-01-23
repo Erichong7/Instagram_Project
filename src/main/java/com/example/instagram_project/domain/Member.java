@@ -1,6 +1,6 @@
 package com.example.instagram_project.domain;
 
-import com.example.instagram_project.auth.Authority;
+import com.example.instagram_project.config.auth.Authority;
 import lombok.*;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -35,6 +35,10 @@ public class Member extends BaseTimeEntity {
     }
 
     public void addUserAuthority() {
-        this.authority = Authority.ROLE_USER;
+        this.authority = Authority.USER;
+    }
+
+    public boolean checkPassword(PasswordEncoder passwordEncoder, String password) {
+        return passwordEncoder.matches(password, this.password);
     }
 }
