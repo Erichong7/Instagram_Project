@@ -1,4 +1,4 @@
-package com.example.instagram_project.config.jwt;
+package com.example.instagram_project.global.config.jwt;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -21,7 +21,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         String token = jwtAuthenticationProvider.resolveToken(request);
-
         if (token != null && jwtAuthenticationProvider.validateToken(token)) {
             Authentication authentication = jwtAuthenticationProvider.getAuthentication(token);
 

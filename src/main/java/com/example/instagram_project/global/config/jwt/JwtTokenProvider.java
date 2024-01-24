@@ -1,4 +1,4 @@
-package com.example.instagram_project.config.jwt;
+package com.example.instagram_project.global.config.jwt;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;

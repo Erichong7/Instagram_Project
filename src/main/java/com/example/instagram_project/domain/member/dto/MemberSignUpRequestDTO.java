@@ -1,7 +1,7 @@
-package com.example.instagram_project.dto;
+package com.example.instagram_project.domain.member.dto;
 
-import com.example.instagram_project.config.auth.Authority;
-import com.example.instagram_project.domain.Member;
+import com.example.instagram_project.global.config.auth.Authority;
+import com.example.instagram_project.domain.member.entity.Member;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

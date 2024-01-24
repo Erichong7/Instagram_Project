@@ -1,6 +1,6 @@
-package com.example.instagram_project.repository;
+package com.example.instagram_project.domain.member.repository;
 
-import com.example.instagram_project.domain.Member;
+import com.example.instagram_project.domain.member.entity.Member;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

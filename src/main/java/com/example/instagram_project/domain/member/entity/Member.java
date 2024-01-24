@@ -1,6 +1,6 @@
-package com.example.instagram_project.domain;
+package com.example.instagram_project.domain.member.entity;
 
-import com.example.instagram_project.config.auth.Authority;
+import com.example.instagram_project.global.config.auth.Authority;
 import lombok.*;
 import org.springframework.security.crypto.password.PasswordEncoder;
 

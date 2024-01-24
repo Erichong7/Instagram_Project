@@ -1,8 +1,8 @@
-package com.example.instagram_project.controller;
+package com.example.instagram_project.domain.member.controller;
 
-import com.example.instagram_project.dto.MemberLoginDTO;
-import com.example.instagram_project.dto.MemberSignUpRequestDTO;
-import com.example.instagram_project.service.MemberService;
+import com.example.instagram_project.domain.member.dto.MemberLoginDTO;
+import com.example.instagram_project.domain.member.dto.MemberSignUpRequestDTO;
+import com.example.instagram_project.domain.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,7 +21,7 @@ public class MemberController {
         return ResponseEntity.ok(memberService.signUp(request));
     }
 
-    @GetMapping("/login")
+    @PostMapping("/login")
     public ResponseEntity<String> login(@RequestBody MemberLoginDTO memberLoginDTO) {
         return ResponseEntity.ok(memberService.login(memberLoginDTO));
     }

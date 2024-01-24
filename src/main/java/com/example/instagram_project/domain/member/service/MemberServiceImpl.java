@@ -1,10 +1,10 @@
-package com.example.instagram_project.service;
+package com.example.instagram_project.domain.member.service;
 
-import com.example.instagram_project.config.jwt.JwtTokenProvider;
-import com.example.instagram_project.domain.Member;
-import com.example.instagram_project.dto.MemberLoginDTO;
-import com.example.instagram_project.dto.MemberSignUpRequestDTO;
-import com.example.instagram_project.repository.MemberRepository;
+import com.example.instagram_project.global.config.jwt.JwtTokenProvider;
+import com.example.instagram_project.domain.member.repository.MemberRepository;
+import com.example.instagram_project.domain.member.entity.Member;
+import com.example.instagram_project.domain.member.dto.MemberLoginDTO;
+import com.example.instagram_project.domain.member.dto.MemberSignUpRequestDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -59,6 +59,6 @@ public class MemberServiceImpl implements MemberService {
         List<String> roles = new ArrayList<>();
         roles.add(member.getAuthority().name());
 
-        return jwtTokenProvider.createToken(member.getNickname(), roles);
+        return jwtTokenProvider.createToken(member.getEmail(), roles);
     }
 }

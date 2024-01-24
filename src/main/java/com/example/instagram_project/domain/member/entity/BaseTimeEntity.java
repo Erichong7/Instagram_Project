@@ -1,4 +1,4 @@
-package com.example.instagram_project.domain;
+package com.example.instagram_project.domain.member.entity;
 
 import lombok.Getter;
 import org.springframework.data.annotation.CreatedDate;
