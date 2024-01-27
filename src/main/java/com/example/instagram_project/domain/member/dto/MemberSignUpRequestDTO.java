@@ -1,14 +1,13 @@
 package com.example.instagram_project.domain.member.dto;
 
-import com.example.instagram_project.global.config.auth.Authority;
 import com.example.instagram_project.domain.member.entity.Member;
+import com.example.instagram_project.global.config.auth.Authority;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
 
 @Data
 @Builder

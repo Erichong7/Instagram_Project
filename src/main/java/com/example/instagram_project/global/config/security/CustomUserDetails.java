@@ -1,4 +1,4 @@
-package com.example.instagram_project.domain.member.service;
+package com.example.instagram_project.global.config.security;
 
 import com.example.instagram_project.domain.member.entity.Member;
 import org.springframework.security.core.GrantedAuthority;

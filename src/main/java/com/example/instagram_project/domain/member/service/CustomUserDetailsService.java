@@ -2,6 +2,7 @@ package com.example.instagram_project.domain.member.service;
 
 import com.example.instagram_project.domain.member.entity.Member;
 import com.example.instagram_project.domain.member.repository.MemberRepository;
+import com.example.instagram_project.global.config.security.CustomUserDetails;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

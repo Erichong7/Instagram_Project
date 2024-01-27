@@ -1,10 +1,9 @@
-package com.example.instagram_project.global.config.security;
+package com.example.instagram_project.global.util;
 
 import com.example.instagram_project.domain.member.entity.Member;
 import com.example.instagram_project.domain.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -12,15 +11,6 @@ import org.springframework.stereotype.Component;
 public class SecurityUtil {
 
     private final MemberRepository memberRepository;
-
-    public static String getLoginUsername() {
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        if (principal instanceof UserDetails) {
-            return ((UserDetails) principal).getUsername();
-        } else {
-            return principal.toString();
-        }
-    }
 
     public Member getLoginMember() {
         try {

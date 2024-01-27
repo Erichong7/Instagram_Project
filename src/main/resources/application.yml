@@ -1,15 +1,15 @@
 cloud:
   aws:
     s3:
-      bucket: eric-s3-bucket
-    stack.auto: false
-    region.static: ap-northeast-2
+      bucket: hongjeongu-s3-bucket
     credentials:
-      accessKey: ${ACCESS_KEY}
-      secretKey: ${SECRET_KEY}
-
-jwt:
-
+      access-key: ${ACCESS_KEY}
+      secret-key: ${SECRET_KEY}
+    region:
+      static: ap-northeast-2
+      auto: false
+    stack:
+      auto: false
 
 spring:
   datasource:

@@ -3,11 +3,13 @@ package com.example.instagram_project.domain.member.controller;
 import com.example.instagram_project.domain.member.dto.MemberLoginDTO;
 import com.example.instagram_project.domain.member.dto.MemberSignUpRequestDTO;
 import com.example.instagram_project.domain.member.service.MemberService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
-import javax.validation.Valid;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
