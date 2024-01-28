@@ -1,7 +1,7 @@
 package com.example.instagram_project.domain.feed.dto;
 
 import com.example.instagram_project.domain.feed.entity.Post;
-import com.example.instagram_project.domain.member.dto.response.MemberDTO;
+import com.example.instagram_project.domain.member.dto.MemberDTO;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

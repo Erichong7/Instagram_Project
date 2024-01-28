@@ -1,4 +1,4 @@
-package com.example.instagram_project.domain.member.dto.response;
+package com.example.instagram_project.domain.member.dto;
 
 import com.example.instagram_project.domain.member.entity.Member;
 import lombok.Builder;
