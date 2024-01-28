@@ -4,7 +4,7 @@ import com.example.instagram_project.domain.feed.dto.PostDTO;
 import com.example.instagram_project.domain.feed.entity.Post;
 import com.example.instagram_project.domain.feed.repository.PostRepository;
 import com.example.instagram_project.domain.member.entity.Member;
-import com.example.instagram_project.global.util.SecurityUtil;
+import com.example.instagram_project.global.util.AuthUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,11 +16,11 @@ public class PostService {
 
     private final PostRepository postRepository;
     private final PostImageService postImageService;
-    private final SecurityUtil securityUtil;
+    private final AuthUtil authUtil;
 
     @Transactional
     public void upload(PostDTO postDTO) {
-        Member member = securityUtil.getLoginMember();
+        Member member = authUtil.getLoginMember();
 
         Post post = Post.builder()
                 .member(member)
@@ -46,7 +46,7 @@ public class PostService {
     }
 
     private Post validate(Long postId) throws IllegalAccessException {
-        Member member = securityUtil.getLoginMember();
+        Member member = authUtil.getLoginMember();
         Post post = postRepository.findById(postId)
                 .orElseThrow(() -> new IllegalArgumentException("게시물을 찾을 수 없습니다."));
 

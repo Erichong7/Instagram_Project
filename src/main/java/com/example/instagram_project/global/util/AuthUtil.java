@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
-public class SecurityUtil {
+public class AuthUtil {
 
     private final MemberRepository memberRepository;
 
