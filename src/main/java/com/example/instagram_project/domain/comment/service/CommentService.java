@@ -55,10 +55,26 @@ public class CommentService {
     }
 
     @Transactional
-    public void update(Long commentId, CommentUpdateRequest commentUpdateRequest) {
+    public void update(Long commentId, CommentUpdateRequest commentUpdateRequest) throws IllegalAccessException {
+        Comment comment = validate(commentId);
+        comment.update(commentUpdateRequest.getContent());
+    }
+
+    @Transactional
+    public void delete(Long commentId) throws IllegalAccessException {
+        Comment comment = validate(commentId);
+        commentRepository.delete(comment);
+    }
+
+    private Comment validate(Long commentId) throws IllegalAccessException {
+        Member member = authUtil.getLoginMember();
         Comment comment = commentRepository.findById(commentId)
                 .orElseThrow(() -> new EntityNotFoundException("댓글을 찾을 수 없습니다."));
 
-        comment.update(commentUpdateRequest.getContent());
+        if(!comment.getMember().equals(member)) {
+            throw new IllegalAccessException("게시물을 수정할 권한이 없습니다.");
+        }
+
+        return comment;
     }
 }
