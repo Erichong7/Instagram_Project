@@ -1,8 +1,8 @@
 package com.example.instagram_project.domain.comment.controller;
 
+import com.example.instagram_project.domain.comment.dto.request.CommentReplyRequest;
 import com.example.instagram_project.domain.comment.dto.request.CommentRequest;
 import com.example.instagram_project.domain.comment.dto.request.CommentUpdateRequest;
-import com.example.instagram_project.domain.comment.dto.request.CommentReplyRequest;
 import com.example.instagram_project.domain.comment.service.CommentService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

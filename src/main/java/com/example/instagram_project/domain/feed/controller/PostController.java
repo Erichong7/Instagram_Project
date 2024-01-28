@@ -1,5 +1,6 @@
 package com.example.instagram_project.domain.feed.controller;
 
+import com.example.instagram_project.domain.feed.dto.PostDTO;
 import com.example.instagram_project.domain.feed.dto.request.PostRequest;
 import com.example.instagram_project.domain.feed.dto.response.PostResponse;
 import com.example.instagram_project.domain.feed.service.PostService;
@@ -19,6 +20,12 @@ public class PostController {
     public ResponseEntity<PostResponse> getPosts() {
         PostResponse postResponse = postService.getPosts();
         return ResponseEntity.ok(postResponse);
+    }
+
+    @GetMapping("/{postId}")
+    public ResponseEntity<PostDTO> getPost(@PathVariable Long postId) {
+        PostDTO post = postService.getPost(postId);
+        return ResponseEntity.ok(post);
     }
 
     @PostMapping

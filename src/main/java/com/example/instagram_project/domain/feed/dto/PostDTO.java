@@ -1,5 +1,6 @@
 package com.example.instagram_project.domain.feed.dto;
 
+import com.example.instagram_project.domain.comment.dto.CommentDTO;
 import com.example.instagram_project.domain.feed.entity.Post;
 import com.example.instagram_project.domain.member.dto.MemberDTO;
 import lombok.Builder;
@@ -19,14 +20,16 @@ public class PostDTO {
     private String content;
     private LocalDateTime uploadDate;
     private List<PostImageDTO> postImages;
+    private List<CommentDTO> comments;
 
     @Builder
-    public PostDTO(Long id, MemberDTO member, String content, LocalDateTime uploadDate, List<PostImageDTO> postImages) {
+    public PostDTO(Long id, MemberDTO member, String content, LocalDateTime uploadDate, List<PostImageDTO> postImages, List<CommentDTO> comments) {
         this.id = id;
         this.member = member;
         this.content = content;
         this.uploadDate = uploadDate;
         this.postImages = postImages;
+        this.comments = comments;
     }
 
     public static PostDTO from(Post post) {
@@ -36,6 +39,7 @@ public class PostDTO {
                 .content(post.getContent())
                 .uploadDate(post.getUploadDate())
                 .postImages(post.getPostImages().stream().map(PostImageDTO::from).collect(Collectors.toList()))
+                .comments(post.getComments().stream().map(CommentDTO::from).collect(Collectors.toList()))
                 .build();
     }
 }

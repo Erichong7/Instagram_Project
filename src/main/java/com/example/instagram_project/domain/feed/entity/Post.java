@@ -1,8 +1,12 @@
 package com.example.instagram_project.domain.feed.entity;
 
+import com.example.instagram_project.domain.comment.entity.Comment;
 import com.example.instagram_project.domain.member.entity.Member;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -33,16 +37,17 @@ public class Post {
     @OneToMany(mappedBy = "post", orphanRemoval = true)
     private List<PostImage> postImages = new ArrayList<>();
 
+    @OneToMany(mappedBy = "post", orphanRemoval = true)
+    private List<Comment> comments = new ArrayList<>();
+
+    @Builder
+    public Post(Member member, String content, List<Comment> comments) {
+        this.member = member;
+        this.content = content;
+        this.comments = comments;
+    }
+
     public void update(String content) {
         this.content = content;
     }
-
-    @Builder
-    public Post(Member member, String content) {
-        this.member = member;
-        this.content = content;
-    }
-
-    //    @OneToMany(mappedBy = "post")
-//    private List<Comment> comments = new ArrayList<>();
 }

@@ -1,8 +1,8 @@
 package com.example.instagram_project.domain.comment.service;
 
+import com.example.instagram_project.domain.comment.dto.request.CommentReplyRequest;
 import com.example.instagram_project.domain.comment.dto.request.CommentRequest;
 import com.example.instagram_project.domain.comment.dto.request.CommentUpdateRequest;
-import com.example.instagram_project.domain.comment.dto.request.CommentReplyRequest;
 import com.example.instagram_project.domain.comment.entity.Comment;
 import com.example.instagram_project.domain.comment.repository.CommentRepository;
 import com.example.instagram_project.domain.feed.entity.Post;
@@ -51,6 +51,7 @@ public class CommentService {
                 .content(commentReplyRequest.getContent())
                 .build();
 
+        parentComment.getChildren().add(comment);
         commentRepository.save(comment);
     }
 
