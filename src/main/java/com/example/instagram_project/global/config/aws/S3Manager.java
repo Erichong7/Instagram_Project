@@ -1,4 +1,4 @@
-package com.example.instagram_project;
+package com.example.instagram_project.global.config.aws;
 
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.model.ObjectMetadata;

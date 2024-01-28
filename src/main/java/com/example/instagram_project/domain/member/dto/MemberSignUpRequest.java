@@ -12,7 +12,7 @@ import lombok.Data;
 @Data
 @Builder
 @AllArgsConstructor
-public class MemberSignUpRequestDTO {
+public class MemberSignUpRequest {
 
     @NotBlank(message = "아이디를 입력해주세요")
     private String email;

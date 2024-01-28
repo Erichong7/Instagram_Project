@@ -1,6 +1,6 @@
 package com.example.instagram_project.domain.feed.service;
 
-import com.example.instagram_project.S3Manager;
+import com.example.instagram_project.global.config.aws.S3Manager;
 import com.example.instagram_project.domain.feed.entity.Post;
 import com.example.instagram_project.domain.feed.entity.PostImage;
 import com.example.instagram_project.domain.feed.repository.PostImageRepository;

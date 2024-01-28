@@ -1,7 +1,7 @@
 package com.example.instagram_project.domain.member.controller;
 
-import com.example.instagram_project.domain.member.dto.MemberLoginDTO;
-import com.example.instagram_project.domain.member.dto.MemberSignUpRequestDTO;
+import com.example.instagram_project.domain.member.dto.MemberLoginRequest;
+import com.example.instagram_project.domain.member.dto.MemberSignUpRequest;
 import com.example.instagram_project.domain.member.service.MemberService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -19,12 +19,12 @@ public class MemberController {
     private final MemberService memberService;
 
     @PostMapping("/join")
-    public ResponseEntity<Long> join(@Valid @RequestBody MemberSignUpRequestDTO request) throws Exception {
+    public ResponseEntity<Long> join(@Valid @RequestBody MemberSignUpRequest request) throws Exception {
         return ResponseEntity.ok(memberService.signUp(request));
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody MemberLoginDTO memberLoginDTO) {
-        return ResponseEntity.ok(memberService.login(memberLoginDTO));
+    public ResponseEntity<String> login(@RequestBody MemberLoginRequest memberLoginRequest) {
+        return ResponseEntity.ok(memberService.login(memberLoginRequest));
     }
 }

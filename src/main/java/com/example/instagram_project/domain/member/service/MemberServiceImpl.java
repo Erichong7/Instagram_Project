@@ -3,8 +3,8 @@ package com.example.instagram_project.domain.member.service;
 import com.example.instagram_project.global.config.jwt.JwtTokenProvider;
 import com.example.instagram_project.domain.member.repository.MemberRepository;
 import com.example.instagram_project.domain.member.entity.Member;
-import com.example.instagram_project.domain.member.dto.MemberLoginDTO;
-import com.example.instagram_project.domain.member.dto.MemberSignUpRequestDTO;
+import com.example.instagram_project.domain.member.dto.MemberLoginRequest;
+import com.example.instagram_project.domain.member.dto.MemberSignUpRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -24,7 +24,7 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     @Transactional
-    public Long signUp(MemberSignUpRequestDTO requestDTO) throws Exception {
+    public Long signUp(MemberSignUpRequest requestDTO) throws Exception {
         if (memberRepository.findByEmail(requestDTO.getEmail()).isPresent()){
             throw new Exception("이미 존재하는 이메일입니다.");
         }
@@ -46,12 +46,12 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public String login(MemberLoginDTO memberLoginDTO) {
+    public String login(MemberLoginRequest memberLoginRequest) {
 
-        Member member = memberRepository.findByEmail(memberLoginDTO.getEmail())
+        Member member = memberRepository.findByEmail(memberLoginRequest.getEmail())
                 .orElseThrow(() -> new IllegalArgumentException("가입되지 않은 Email 입니다."));
 
-        String password = memberLoginDTO.getPassword();
+        String password = memberLoginRequest.getPassword();
         if (!member.checkPassword(passwordEncoder, password)) {
             throw new IllegalArgumentException("잘못된 비밀번호입니다.");
         }

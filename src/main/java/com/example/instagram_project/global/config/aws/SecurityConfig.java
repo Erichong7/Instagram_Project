@@ -1,4 +1,4 @@
-package com.example.instagram_project.global.config.security;
+package com.example.instagram_project.global.config.aws;
 
 import com.example.instagram_project.global.config.jwt.JwtAuthenticationFilter;
 import com.example.instagram_project.global.config.jwt.JwtTokenProvider;
