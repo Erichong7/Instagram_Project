@@ -1,6 +1,8 @@
 package com.example.instagram_project.domain.comment.service;
 
-import com.example.instagram_project.domain.comment.dto.CommentRequest;
+import com.example.instagram_project.domain.comment.dto.request.CommentRequest;
+import com.example.instagram_project.domain.comment.dto.request.CommentUpdateRequest;
+import com.example.instagram_project.domain.comment.dto.request.CommentReplyRequest;
 import com.example.instagram_project.domain.comment.entity.Comment;
 import com.example.instagram_project.domain.comment.repository.CommentRepository;
 import com.example.instagram_project.domain.feed.entity.Post;
@@ -22,7 +24,7 @@ public class CommentService {
     private final AuthUtil authUtil;
 
     @Transactional
-    public void create(CommentRequest commentRequest) {
+    public void createComment(CommentRequest commentRequest) {
         Post post = postRepository.findById(commentRequest.getPostId())
                 .orElseThrow(() -> new EntityNotFoundException("게시물을 찾을 수 없습니다."));
         Member member = authUtil.getLoginMember();
@@ -33,5 +35,30 @@ public class CommentService {
                 .build();
 
         commentRepository.save(comment);
+    }
+
+    @Transactional
+    public void createReply(CommentReplyRequest commentReplyRequest) {
+        Post post = postRepository.findById(commentReplyRequest.getPostId())
+                .orElseThrow(() -> new EntityNotFoundException("게시물을 찾을 수 없습니다."));
+        Member member = authUtil.getLoginMember();
+        Comment parentComment = commentRepository.findById(commentReplyRequest.getParentId())
+                .orElseThrow(() -> new EntityNotFoundException("부모 댓글을 찾을 수 없습니다."));
+        Comment comment = Comment.builder()
+                .member(member)
+                .post(post)
+                .parent(parentComment)
+                .content(commentReplyRequest.getContent())
+                .build();
+
+        commentRepository.save(comment);
+    }
+
+    @Transactional
+    public void update(Long commentId, CommentUpdateRequest commentUpdateRequest) {
+        Comment comment = commentRepository.findById(commentId)
+                .orElseThrow(() -> new EntityNotFoundException("댓글을 찾을 수 없습니다."));
+
+        comment.update(commentUpdateRequest.getContent());
     }
 }

@@ -1,4 +1,4 @@
-package com.example.instagram_project.domain.comment.dto;
+package com.example.instagram_project.domain.comment.dto.request;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -8,7 +8,7 @@ import org.hibernate.validator.constraints.Length;
 @Data
 public class CommentRequest {
 
-    @NotNull
+    @NotNull(message = "게시글의 Id는 필수입니다.")
     private Long postId;
 
     @NotBlank(message = "댓글 내용을 입력하시오.")
