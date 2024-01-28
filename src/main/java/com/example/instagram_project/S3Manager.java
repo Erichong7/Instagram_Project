@@ -38,4 +38,8 @@ public class S3Manager {
             return null;
         }
     }
+
+    public void deleteFile(String image) {
+        amazonS3Client.deleteObject(bucket, image);
+    }
 }

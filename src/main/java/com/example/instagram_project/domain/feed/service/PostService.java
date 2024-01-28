@@ -1,6 +1,6 @@
 package com.example.instagram_project.domain.feed.service;
 
-import com.example.instagram_project.domain.feed.dto.PostUploadRequestDTO;
+import com.example.instagram_project.domain.feed.dto.PostDTO;
 import com.example.instagram_project.domain.feed.entity.Post;
 import com.example.instagram_project.domain.feed.repository.PostRepository;
 import com.example.instagram_project.domain.member.entity.Member;
@@ -19,15 +19,29 @@ public class PostService {
     private final SecurityUtil securityUtil;
 
     @Transactional
-    public void upload(PostUploadRequestDTO postUploadRequestDTO) {
+    public void upload(PostDTO postDTO) {
         Member member = securityUtil.getLoginMember();
 
         Post post = Post.builder()
                 .member(member)
-                .content(postUploadRequestDTO.getContent())
+                .content(postDTO.getContent())
                 .build();
 
-        postImageService.saveAll(post, postUploadRequestDTO.getPostImages());
+        postImageService.saveAll(post, postDTO.getPostImages());
         postRepository.save(post);
+    }
+
+    @Transactional
+    public void update(Long postId, PostDTO postDTO) throws IllegalAccessException {
+        Member member = securityUtil.getLoginMember();
+        Post post = postRepository.findById(postId)
+                .orElseThrow(() -> new IllegalArgumentException("게시물을 찾을 수 없습니다."));
+
+        if (!post.getMember().equals(member)) {
+            throw new IllegalAccessException("게시물을 수정할 권한이 없습니다.");
+        }
+
+        post.update(postDTO.getContent());
+        postImageService.updateAll(post, postDTO.getPostImages());
     }
 }

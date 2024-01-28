@@ -9,7 +9,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -20,24 +19,27 @@ public class PostImageService {
     private final S3Manager s3Manager;
 
     @Transactional
-    public List<PostImage> saveAll(Post post, List<MultipartFile> multipartFiles) {
-
-        List<PostImage> postImages = new ArrayList<>();
-
-        for (int i = 0; i < multipartFiles.size(); i++) {
-            MultipartFile file = multipartFiles.get(i);
+    public void saveAll(Post post, List<MultipartFile> multipartFiles) {
+        multipartFiles.forEach(file -> {
             String url = s3Manager.uploadFile(file);
-
             PostImage postImage = PostImage.builder()
                     .image(url)
                     .post(post)
                     .build();
-
-            postImages.add(postImage);
             postImageRepository.save(postImage);
-        }
-
-       return postImages;
+        });
     }
 
+    @Transactional
+    public void updateAll(Post post, List<MultipartFile> newPostImages) {
+        deleteAllByPost(post);
+        saveAll(post, newPostImages);
+    }
+
+
+    private void deleteAllByPost(Post post) {
+        List<PostImage> existingPostImages = postImageRepository.findAllByPost(post);
+        existingPostImages.forEach(postImage -> s3Manager.deleteFile(postImage.getImage()));
+        postImageRepository.deleteAllByPost(post);
+    }
 }
