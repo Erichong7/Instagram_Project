@@ -33,6 +33,19 @@ public class PostService {
 
     @Transactional
     public void update(Long postId, PostDTO postDTO) throws IllegalAccessException {
+        Post post = validate(postId);
+        post.update(postDTO.getContent());
+        postImageService.updateAll(post, postDTO.getPostImages());
+    }
+
+    @Transactional
+    public void delete(Long postId) throws IllegalAccessException {
+        Post post = validate(postId);
+        postRepository.deleteById(postId);
+        postImageService.deleteAllByPost(post);
+    }
+
+    private Post validate(Long postId) throws IllegalAccessException {
         Member member = securityUtil.getLoginMember();
         Post post = postRepository.findById(postId)
                 .orElseThrow(() -> new IllegalArgumentException("게시물을 찾을 수 없습니다."));
@@ -41,7 +54,6 @@ public class PostService {
             throw new IllegalAccessException("게시물을 수정할 권한이 없습니다.");
         }
 
-        post.update(postDTO.getContent());
-        postImageService.updateAll(post, postDTO.getPostImages());
+        return post;
     }
 }

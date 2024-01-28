@@ -26,4 +26,9 @@ public class PostController {
         return ResponseEntity.ok().build();
     }
 
+    @DeleteMapping("/{postId}")
+    public ResponseEntity<Void> deletePost(@PathVariable Long postId) throws IllegalAccessException {
+        postService.delete(postId);
+        return ResponseEntity.ok().build();
+    }
 }

@@ -30,16 +30,16 @@ public class Post {
     @CreatedDate
     private LocalDateTime uploadDate;
 
-    @Builder
-    public Post(Member member, String content) {
-        this.member = member;
-        this.content = content;
-    }
-
-    @OneToMany(mappedBy = "post")
+    @OneToMany(mappedBy = "post", orphanRemoval = true)
     private List<PostImage> postImages = new ArrayList<>();
 
     public void update(String content) {
+        this.content = content;
+    }
+
+    @Builder
+    public Post(Member member, String content) {
+        this.member = member;
         this.content = content;
     }
 

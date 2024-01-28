@@ -37,7 +37,8 @@ public class PostImageService {
     }
 
 
-    private void deleteAllByPost(Post post) {
+    @Transactional
+    public void deleteAllByPost(Post post) {
         List<PostImage> existingPostImages = postImageRepository.findAllByPost(post);
         existingPostImages.forEach(postImage -> s3Manager.deleteFile(postImage.getImage()));
         postImageRepository.deleteAllByPost(post);
