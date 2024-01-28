@@ -63,6 +63,7 @@ public class PostService {
                 .content(postRequest.getContent())
                 .build();
 
+        member.getPosts().add(post);
         postImageService.saveAll(post, postRequest.getPostImages());
         postRepository.save(post);
     }

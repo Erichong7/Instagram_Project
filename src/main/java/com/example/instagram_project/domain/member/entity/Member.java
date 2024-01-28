@@ -1,11 +1,13 @@
 package com.example.instagram_project.domain.member.entity;
 
+import com.example.instagram_project.domain.feed.entity.Post;
 import com.example.instagram_project.domain.follow.entity.Follow;
 import com.example.instagram_project.global.config.auth.Authority;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -29,8 +31,11 @@ public class Member extends BaseTimeEntity {
     @Column(nullable = false)
     private String password;
 
-    @OneToMany(mappedBy = "member")
+    @OneToMany(mappedBy = "member", orphanRemoval = true)
     private List<Follow> followings;
+
+    @OneToMany(mappedBy = "member", orphanRemoval = true)
+    private List<Post> posts = new ArrayList<>();
 
     @Enumerated(EnumType.STRING)
     private Authority authority;

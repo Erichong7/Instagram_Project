@@ -7,4 +7,6 @@ public interface MemberService {
     public Long signUp(MemberSignUpRequest requestDTO) throws Exception;
 
     String login(MemberLoginRequest memberLoginRequest);
+
+    void delete();
 }

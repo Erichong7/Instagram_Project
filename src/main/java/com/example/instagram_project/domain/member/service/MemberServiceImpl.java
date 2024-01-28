@@ -5,6 +5,7 @@ import com.example.instagram_project.domain.member.repository.MemberRepository;
 import com.example.instagram_project.domain.member.entity.Member;
 import com.example.instagram_project.domain.member.dto.MemberLoginRequest;
 import com.example.instagram_project.domain.member.dto.MemberSignUpRequest;
+import com.example.instagram_project.global.util.AuthUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -21,6 +22,7 @@ public class MemberServiceImpl implements MemberService {
     private final MemberRepository memberRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtTokenProvider jwtTokenProvider;
+    private final AuthUtil authUtil;
 
     @Override
     @Transactional
@@ -40,14 +42,8 @@ public class MemberServiceImpl implements MemberService {
         return member.getId();
     }
 
-    @Transactional
-    public Member getMemberByEmail(String email) {
-        return memberRepository.findByEmail(email).get();
-    }
-
     @Override
     public String login(MemberLoginRequest memberLoginRequest) {
-
         Member member = memberRepository.findByEmail(memberLoginRequest.getEmail())
                 .orElseThrow(() -> new IllegalArgumentException("가입되지 않은 Email 입니다."));
 
@@ -60,5 +56,12 @@ public class MemberServiceImpl implements MemberService {
         roles.add(member.getAuthority().name());
 
         return jwtTokenProvider.createToken(member.getEmail(), roles);
+    }
+
+    @Override
+    @Transactional
+    public void delete() {
+        Member member = authUtil.getLoginMember();
+        memberRepository.delete(member);
     }
 }
