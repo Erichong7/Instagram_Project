@@ -1,7 +1,7 @@
 package com.example.instagram_project.global.config.security;
 
-import com.example.instagram_project.global.config.jwt.JwtAuthenticationFilter;
-import com.example.instagram_project.global.config.jwt.JwtTokenProvider;
+import com.example.instagram_project.global.jwt.JwtAuthenticationFilter;
+import com.example.instagram_project.global.jwt.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

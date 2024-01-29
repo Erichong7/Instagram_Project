@@ -1,7 +1,7 @@
 package com.example.instagram_project.domain.member.dto.request;
 
 import com.example.instagram_project.domain.member.entity.Member;
-import com.example.instagram_project.global.config.auth.Authority;
+import com.example.instagram_project.global.auth.Authority;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;

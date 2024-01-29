@@ -4,7 +4,7 @@ import com.example.instagram_project.domain.feed.dto.PostDTO;
 import com.example.instagram_project.domain.member.dto.request.MemberProfileEditRequest;
 import com.example.instagram_project.domain.member.dto.response.MemberResponse;
 import com.example.instagram_project.global.config.aws.S3Manager;
-import com.example.instagram_project.global.config.jwt.JwtTokenProvider;
+import com.example.instagram_project.global.jwt.JwtTokenProvider;
 import com.example.instagram_project.domain.member.repository.MemberRepository;
 import com.example.instagram_project.domain.member.entity.Member;
 import com.example.instagram_project.domain.member.dto.request.MemberLoginRequest;

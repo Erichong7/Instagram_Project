@@ -1,4 +1,4 @@
-package com.example.instagram_project.global.config.jwt;
+package com.example.instagram_project.global.jwt;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

@@ -1,4 +1,4 @@
-package com.example.instagram_project.global.config.jwt;
+package com.example.instagram_project.global.jwt;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
@@ -7,6 +7,7 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import jakarta.annotation.PostConstruct;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -20,9 +21,12 @@ import java.util.List;
 @RequiredArgsConstructor
 @Component
 public class JwtTokenProvider {
-    private String secretKey =
-            "c2lsdmVybmluZS10ZWNoLXNwcmluZy1ib290LWp3dC10dXRvcmlhbC1zZWNyZXQtc2lsdmVybmluZS10ZWNoLXNwcmluZy1ib290LWp3dC10dXRvcmlhbC1zZWNyZXQK";
-    private long tokenValidTime = 1440 * 60 * 7 * 1000L;
+
+    @Value("${jwt.secret-key}")
+    private String secretKey;
+
+    @Value("${jwt.expiration}")
+    private long tokenValidTime;
     private final UserDetailsService userDetailsService;
 
     @PostConstruct

@@ -2,7 +2,7 @@ package com.example.instagram_project.domain.member.entity;
 
 import com.example.instagram_project.domain.feed.entity.Post;
 import com.example.instagram_project.domain.follow.entity.Follow;
-import com.example.instagram_project.global.config.auth.Authority;
+import com.example.instagram_project.global.auth.Authority;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.crypto.password.PasswordEncoder;
