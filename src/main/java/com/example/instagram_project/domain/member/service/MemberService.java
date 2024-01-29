@@ -6,7 +6,7 @@ import com.example.instagram_project.domain.member.dto.request.MemberSignUpReque
 import com.example.instagram_project.domain.member.dto.response.MemberResponse;
 
 public interface MemberService {
-    public Long signUp(MemberSignUpRequest requestDTO) throws Exception;
+    Long signUp(MemberSignUpRequest requestDTO) throws Exception;
 
     String login(MemberLoginRequest memberLoginRequest);
 
