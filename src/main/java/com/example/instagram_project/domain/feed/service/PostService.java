@@ -1,6 +1,5 @@
 package com.example.instagram_project.domain.feed.service;
 
-import com.example.instagram_project.domain.comment.service.CommentService;
 import com.example.instagram_project.domain.feed.dto.PostDTO;
 import com.example.instagram_project.domain.feed.dto.request.PostRequest;
 import com.example.instagram_project.domain.feed.dto.response.PostResponse;
@@ -25,7 +24,6 @@ public class PostService {
     private final PostRepository postRepository;
     private final FollowRepository followRepository;
     private final PostImageService postImageService;
-    private final CommentService commentService;
     private final AuthUtil authUtil;
 
     public PostResponse getPosts() {

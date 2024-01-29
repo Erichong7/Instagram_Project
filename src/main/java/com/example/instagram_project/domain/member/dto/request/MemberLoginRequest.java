@@ -1,4 +1,4 @@
-package com.example.instagram_project.domain.member.dto;
+package com.example.instagram_project.domain.member.dto.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

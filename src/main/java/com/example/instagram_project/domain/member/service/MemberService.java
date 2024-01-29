@@ -1,8 +1,9 @@
 package com.example.instagram_project.domain.member.service;
 
-import com.example.instagram_project.domain.member.dto.MemberLoginRequest;
-import com.example.instagram_project.domain.member.dto.MemberProfileEditRequest;
-import com.example.instagram_project.domain.member.dto.MemberSignUpRequest;
+import com.example.instagram_project.domain.member.dto.request.MemberLoginRequest;
+import com.example.instagram_project.domain.member.dto.request.MemberProfileEditRequest;
+import com.example.instagram_project.domain.member.dto.request.MemberSignUpRequest;
+import com.example.instagram_project.domain.member.dto.response.MemberResponse;
 
 public interface MemberService {
     public Long signUp(MemberSignUpRequest requestDTO) throws Exception;
@@ -12,4 +13,6 @@ public interface MemberService {
     void delete();
 
     void editProfile(MemberProfileEditRequest memberProfileEditRequest);
+
+    MemberResponse getProfile();
 }

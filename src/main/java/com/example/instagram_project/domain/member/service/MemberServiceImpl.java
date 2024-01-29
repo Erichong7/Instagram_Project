@@ -1,12 +1,14 @@
 package com.example.instagram_project.domain.member.service;
 
-import com.example.instagram_project.domain.member.dto.MemberProfileEditRequest;
+import com.example.instagram_project.domain.feed.dto.PostDTO;
+import com.example.instagram_project.domain.member.dto.request.MemberProfileEditRequest;
+import com.example.instagram_project.domain.member.dto.response.MemberResponse;
 import com.example.instagram_project.global.config.aws.S3Manager;
 import com.example.instagram_project.global.config.jwt.JwtTokenProvider;
 import com.example.instagram_project.domain.member.repository.MemberRepository;
 import com.example.instagram_project.domain.member.entity.Member;
-import com.example.instagram_project.domain.member.dto.MemberLoginRequest;
-import com.example.instagram_project.domain.member.dto.MemberSignUpRequest;
+import com.example.instagram_project.domain.member.dto.request.MemberLoginRequest;
+import com.example.instagram_project.domain.member.dto.request.MemberSignUpRequest;
 import com.example.instagram_project.global.util.AuthUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -26,6 +28,22 @@ public class MemberServiceImpl implements MemberService {
     private final JwtTokenProvider jwtTokenProvider;
     private final S3Manager s3Manager;
     private final AuthUtil authUtil;
+
+    @Override
+    public MemberResponse getProfile() {
+        Member member = authUtil.getLoginMember();
+
+        List<PostDTO> posts = member.getPosts().stream()
+                .map(PostDTO::from)
+                .toList();
+
+        return MemberResponse.builder()
+                .nickName(member.getNickname())
+                .image(member.getProfileImage())
+                .introduce(member.getIntroduce())
+                .posts(posts)
+                .build();
+    }
 
     @Override
     @Transactional

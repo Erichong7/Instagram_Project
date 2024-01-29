@@ -1,8 +1,9 @@
 package com.example.instagram_project.domain.member.controller;
 
-import com.example.instagram_project.domain.member.dto.MemberLoginRequest;
-import com.example.instagram_project.domain.member.dto.MemberProfileEditRequest;
-import com.example.instagram_project.domain.member.dto.MemberSignUpRequest;
+import com.example.instagram_project.domain.member.dto.request.MemberLoginRequest;
+import com.example.instagram_project.domain.member.dto.request.MemberProfileEditRequest;
+import com.example.instagram_project.domain.member.dto.request.MemberSignUpRequest;
+import com.example.instagram_project.domain.member.dto.response.MemberResponse;
 import com.example.instagram_project.domain.member.service.MemberService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -15,6 +16,11 @@ import org.springframework.web.bind.annotation.*;
 public class MemberController {
 
     private final MemberService memberService;
+
+    @GetMapping
+    public ResponseEntity<MemberResponse> getProfile() {
+        return ResponseEntity.ok(memberService.getProfile());
+    }
 
     @PostMapping("/join")
     public ResponseEntity<Long> join(@Valid @RequestBody MemberSignUpRequest request) throws Exception {

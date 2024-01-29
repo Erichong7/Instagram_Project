@@ -1,4 +1,4 @@
-package com.example.instagram_project.domain.member.dto;
+package com.example.instagram_project.domain.member.dto.request;
 
 import com.example.instagram_project.domain.member.entity.Member;
 import com.example.instagram_project.global.config.auth.Authority;
