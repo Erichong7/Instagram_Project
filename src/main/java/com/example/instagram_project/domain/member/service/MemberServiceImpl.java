@@ -1,5 +1,7 @@
 package com.example.instagram_project.domain.member.service;
 
+import com.example.instagram_project.domain.member.dto.MemberProfileEditRequest;
+import com.example.instagram_project.global.config.aws.S3Manager;
 import com.example.instagram_project.global.config.jwt.JwtTokenProvider;
 import com.example.instagram_project.domain.member.repository.MemberRepository;
 import com.example.instagram_project.domain.member.entity.Member;
@@ -22,6 +24,7 @@ public class MemberServiceImpl implements MemberService {
     private final MemberRepository memberRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtTokenProvider jwtTokenProvider;
+    private final S3Manager s3Manager;
     private final AuthUtil authUtil;
 
     @Override
@@ -56,6 +59,15 @@ public class MemberServiceImpl implements MemberService {
         roles.add(member.getAuthority().name());
 
         return jwtTokenProvider.createToken(member.getEmail(), roles);
+    }
+
+    @Override
+    @Transactional
+    public void editProfile(MemberProfileEditRequest memberProfileEditRequest) {
+        Member member = authUtil.getLoginMember();
+        String profileImage = s3Manager.uploadFile(memberProfileEditRequest.getProfileImage());
+
+        member.edit(memberProfileEditRequest.getNickName(), memberProfileEditRequest.getIntroduce(), profileImage);
     }
 
     @Override

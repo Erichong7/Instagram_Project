@@ -7,7 +7,6 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -31,11 +30,15 @@ public class Member extends BaseTimeEntity {
     @Column(nullable = false)
     private String password;
 
+    private String introduce;
+
+    private String profileImage;
+
     @OneToMany(mappedBy = "member", orphanRemoval = true)
     private List<Follow> followings;
 
     @OneToMany(mappedBy = "member", orphanRemoval = true)
-    private List<Post> posts = new ArrayList<>();
+    private List<Post> posts;
 
     @Enumerated(EnumType.STRING)
     private Authority authority;
@@ -50,5 +53,11 @@ public class Member extends BaseTimeEntity {
 
     public boolean checkPassword(PasswordEncoder passwordEncoder, String password) {
         return passwordEncoder.matches(password, this.password);
+    }
+
+    public void edit(String nickName, String introduce, String image) {
+        this.nickname = (nickName != null) ? nickName : this.nickname;
+        this.introduce = (introduce != null) ? introduce : this.introduce;
+        this.profileImage = (image != null) ? image : this.profileImage;
     }
 }

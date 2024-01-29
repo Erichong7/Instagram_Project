@@ -1,6 +1,7 @@
 package com.example.instagram_project.domain.member.controller;
 
 import com.example.instagram_project.domain.member.dto.MemberLoginRequest;
+import com.example.instagram_project.domain.member.dto.MemberProfileEditRequest;
 import com.example.instagram_project.domain.member.dto.MemberSignUpRequest;
 import com.example.instagram_project.domain.member.service.MemberService;
 import jakarta.validation.Valid;
@@ -23,6 +24,12 @@ public class MemberController {
     @PostMapping("/login")
     public ResponseEntity<String> login(@RequestBody MemberLoginRequest memberLoginRequest) {
         return ResponseEntity.ok(memberService.login(memberLoginRequest));
+    }
+
+    @PutMapping
+    public ResponseEntity<Void> editProfile(MemberProfileEditRequest memberProfileEditRequest) {
+        memberService.editProfile(memberProfileEditRequest);
+        return ResponseEntity.ok().build();
     }
 
     @DeleteMapping()

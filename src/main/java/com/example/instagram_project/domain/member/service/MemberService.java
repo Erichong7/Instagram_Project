@@ -1,6 +1,7 @@
 package com.example.instagram_project.domain.member.service;
 
 import com.example.instagram_project.domain.member.dto.MemberLoginRequest;
+import com.example.instagram_project.domain.member.dto.MemberProfileEditRequest;
 import com.example.instagram_project.domain.member.dto.MemberSignUpRequest;
 
 public interface MemberService {
@@ -9,4 +10,6 @@ public interface MemberService {
     String login(MemberLoginRequest memberLoginRequest);
 
     void delete();
+
+    void editProfile(MemberProfileEditRequest memberProfileEditRequest);
 }

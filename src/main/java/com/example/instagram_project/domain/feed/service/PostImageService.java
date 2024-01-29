@@ -36,7 +36,6 @@ public class PostImageService {
         saveAll(post, newPostImages);
     }
 
-
     @Transactional
     public void deleteAllByPost(Post post) {
         List<PostImage> existingPostImages = postImageRepository.findAllByPost(post);

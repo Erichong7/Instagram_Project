@@ -36,6 +36,8 @@ public class MemberSignUpRequest {
                 .email(email)
                 .nickname(nickname)
                 .password(password)
+                .introduce("")
+                .profileImage("https://github.com/Erichong7/Instagram_Project/assets/97429550/05958834-4e72-4e5c-9cad-652b5c6071cc")
                 .authority(Authority.USER)
                 .build();
     }
