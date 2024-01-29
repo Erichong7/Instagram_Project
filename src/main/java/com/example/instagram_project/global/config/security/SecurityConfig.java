@@ -2,16 +2,17 @@ package com.example.instagram_project.global.config.security;
 
 import com.example.instagram_project.global.config.jwt.JwtAuthenticationFilter;
 import com.example.instagram_project.global.config.jwt.JwtTokenProvider;
-import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.servlet.util.matcher.MvcRequestMatcher;
 import org.springframework.web.servlet.handler.HandlerMappingIntrospector;
 
 @Configuration
@@ -31,7 +32,11 @@ public class SecurityConfig {
                                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class)
                 .authorizeHttpRequests(authorizeHttpRequests ->
-                        authorizeHttpRequests.anyRequest().permitAll());
+                        authorizeHttpRequests
+                                .requestMatchers(new MvcRequestMatcher(introspector, "/api/v1/member/join")).permitAll()
+                                .requestMatchers(new MvcRequestMatcher(introspector, "/api/v1/member/login")).permitAll()
+                                .requestMatchers(new MvcRequestMatcher(introspector, "/api/v1/**")).hasRole("USER")
+                                .anyRequest().authenticated());
 
         return http.build();
     }
