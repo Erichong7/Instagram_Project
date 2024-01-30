@@ -35,6 +35,7 @@ public class SecurityConfig {
                         authorizeHttpRequests
                                 .requestMatchers(new MvcRequestMatcher(introspector, "/api/v1/member/join")).permitAll()
                                 .requestMatchers(new MvcRequestMatcher(introspector, "/api/v1/member/login")).permitAll()
+                                .requestMatchers(new MvcRequestMatcher(introspector, "/swagger-ui/**")).permitAll()
                                 .requestMatchers(new MvcRequestMatcher(introspector, "/api/v1/**")).hasRole("USER")
                                 .anyRequest().authenticated());
 
