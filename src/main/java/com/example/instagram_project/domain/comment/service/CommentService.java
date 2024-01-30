@@ -8,6 +8,8 @@ import com.example.instagram_project.domain.comment.repository.CommentRepository
 import com.example.instagram_project.domain.feed.entity.Post;
 import com.example.instagram_project.domain.feed.repository.PostRepository;
 import com.example.instagram_project.domain.member.entity.Member;
+import com.example.instagram_project.global.error.Error;
+import com.example.instagram_project.global.error.exception.NoAuthException;
 import com.example.instagram_project.global.util.AuthUtil;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -56,24 +58,24 @@ public class CommentService {
     }
 
     @Transactional
-    public void update(Long commentId, CommentUpdateRequest commentUpdateRequest) throws IllegalAccessException {
+    public void update(Long commentId, CommentUpdateRequest commentUpdateRequest) {
         Comment comment = validate(commentId);
         comment.update(commentUpdateRequest.getContent());
     }
 
     @Transactional
-    public void delete(Long commentId) throws IllegalAccessException {
+    public void delete(Long commentId) {
         Comment comment = validate(commentId);
         commentRepository.delete(comment);
     }
 
-    private Comment validate(Long commentId) throws IllegalAccessException {
+    private Comment validate(Long commentId) {
         Member member = authUtil.getLoginMember();
         Comment comment = commentRepository.findById(commentId)
-                .orElseThrow(() -> new EntityNotFoundException("댓글을 찾을 수 없습니다."));
+                .orElseThrow(() -> new EntityNotFoundException(Error.NO_AUTH_MEMBER.getMessage()));
 
         if(!comment.getMember().equals(member)) {
-            throw new IllegalAccessException("게시물을 수정할 권한이 없습니다.");
+            throw new NoAuthException();
         }
 
         return comment;

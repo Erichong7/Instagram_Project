@@ -8,7 +8,10 @@ import com.example.instagram_project.domain.feed.repository.PostRepository;
 import com.example.instagram_project.domain.follow.entity.Follow;
 import com.example.instagram_project.domain.follow.repository.FollowRepository;
 import com.example.instagram_project.domain.member.entity.Member;
+import com.example.instagram_project.global.error.Error;
+import com.example.instagram_project.global.error.exception.NoAuthException;
 import com.example.instagram_project.global.util.AuthUtil;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -47,7 +50,7 @@ public class PostService {
 
     public PostDTO getPost(Long postId) {
         Post post = postRepository.findById(postId)
-                .orElseThrow(() -> new IllegalArgumentException("게시물을 찾을 수 없습니다."));
+                .orElseThrow(() -> new EntityNotFoundException(Error.NO_AUTH_MEMBER.getMessage()));
 
         return PostDTO.from(post);
     }
@@ -67,26 +70,26 @@ public class PostService {
     }
 
     @Transactional
-    public void update(Long postId, PostRequest postRequest) throws IllegalAccessException {
+    public void update(Long postId, PostRequest postRequest) {
         Post post = validate(postId);
         post.update(postRequest.getContent());
         postImageService.updateAll(post, postRequest.getPostImages());
     }
 
     @Transactional
-    public void delete(Long postId) throws IllegalAccessException {
+    public void delete(Long postId) {
         Post post = validate(postId);
         postRepository.deleteById(postId);
         postImageService.deleteAllByPost(post);
     }
 
-    private Post validate(Long postId) throws IllegalAccessException {
+    private Post validate(Long postId) {
         Member member = authUtil.getLoginMember();
         Post post = postRepository.findById(postId)
-                .orElseThrow(() -> new IllegalArgumentException("게시물을 찾을 수 없습니다."));
+                .orElseThrow(() -> new EntityNotFoundException(Error.NO_AUTH_MEMBER.getMessage()));
 
         if (!post.getMember().equals(member)) {
-            throw new IllegalAccessException("게시물을 수정할 권한이 없습니다.");
+            throw new NoAuthException();
         }
 
         return post;

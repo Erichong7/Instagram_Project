@@ -4,12 +4,17 @@ import com.example.instagram_project.domain.feed.dto.PostDTO;
 import com.example.instagram_project.domain.member.dto.request.MemberProfileEditRequest;
 import com.example.instagram_project.domain.member.dto.response.MemberResponse;
 import com.example.instagram_project.global.config.aws.S3Manager;
+import com.example.instagram_project.global.error.Error;
+import com.example.instagram_project.global.error.exception.EmailAlreadyExistException;
+import com.example.instagram_project.global.error.exception.PasswordUncheckedException;
+import com.example.instagram_project.global.error.exception.WrongPasswordException;
 import com.example.instagram_project.global.jwt.JwtTokenProvider;
 import com.example.instagram_project.domain.member.repository.MemberRepository;
 import com.example.instagram_project.domain.member.entity.Member;
 import com.example.instagram_project.domain.member.dto.request.MemberLoginRequest;
 import com.example.instagram_project.domain.member.dto.request.MemberSignUpRequest;
 import com.example.instagram_project.global.util.AuthUtil;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -49,11 +54,11 @@ public class MemberServiceImpl implements MemberService {
     @Transactional
     public Long signUp(MemberSignUpRequest requestDTO) throws Exception {
         if (memberRepository.findByEmail(requestDTO.getEmail()).isPresent()){
-            throw new Exception("이미 존재하는 이메일입니다.");
+            throw new EmailAlreadyExistException();
         }
 
         if (!requestDTO.getPassword().equals(requestDTO.getCheckedPassword())){
-            throw new Exception("비밀번호가 일치하지 않습니다.");
+            throw new PasswordUncheckedException();
         }
 
         Member member = memberRepository.save(requestDTO.toEntity());
@@ -66,11 +71,11 @@ public class MemberServiceImpl implements MemberService {
     @Override
     public String login(MemberLoginRequest memberLoginRequest) {
         Member member = memberRepository.findByEmail(memberLoginRequest.getEmail())
-                .orElseThrow(() -> new IllegalArgumentException("가입되지 않은 Email 입니다."));
-
+                .orElseThrow(() -> new EntityNotFoundException(Error.NO_AUTH_MEMBER.getMessage()));
         String password = memberLoginRequest.getPassword();
+
         if (!member.checkPassword(passwordEncoder, password)) {
-            throw new IllegalArgumentException("잘못된 비밀번호입니다.");
+            throw new WrongPasswordException();
         }
 
         List<String> roles = new ArrayList<>();

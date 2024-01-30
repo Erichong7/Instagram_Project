@@ -4,6 +4,9 @@ import com.example.instagram_project.domain.follow.entity.Follow;
 import com.example.instagram_project.domain.follow.repository.FollowRepository;
 import com.example.instagram_project.domain.member.entity.Member;
 import com.example.instagram_project.domain.member.repository.MemberRepository;
+import com.example.instagram_project.global.error.Error;
+import com.example.instagram_project.global.error.exception.FollowNestingException;
+import com.example.instagram_project.global.error.exception.NoAuthException;
 import com.example.instagram_project.global.util.AuthUtil;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
@@ -19,16 +22,17 @@ public class FollowService {
     private final AuthUtil authUtil;
 
     @Transactional
-    public void follow(String followMemberName) throws IllegalAccessException {
+    public void follow(String followMemberName) {
         Member member = authUtil.getLoginMember();
         Member followMember = memberRepository.findByNickname(followMemberName)
-                .orElseThrow(() -> new EntityNotFoundException("존재하지 않는 회원입니다."));
+                .orElseThrow(() -> new EntityNotFoundException(Error.NO_AUTH_MEMBER.getMessage()));
 
         if (member.getId().equals(followMember.getId())) {
-            throw new IllegalAccessException();
+            throw new NoAuthException();
         }
+
         if (followRepository.existsByMemberIdAndFollowMemberId(member.getId(), followMember.getId())) {
-            throw new IllegalAccessException();
+            throw new FollowNestingException();
         }
 
         Follow follow = Follow.builder()
@@ -42,7 +46,7 @@ public class FollowService {
     public void unfollow(String followMemberName) throws IllegalAccessException {
         Member member = authUtil.getLoginMember();
         Member followMember = memberRepository.findByNickname(followMemberName)
-                .orElseThrow(() -> new EntityNotFoundException("존재하지 않는 회원입니다."));
+                .orElseThrow(() -> new EntityNotFoundException(Error.NO_AUTH_MEMBER.getMessage()));
 
         if (member.getId().equals(followMember.getId())) {
             throw new IllegalAccessException();
