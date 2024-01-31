@@ -52,7 +52,7 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     @Transactional
-    public Long signUp(MemberSignUpRequest requestDTO) throws Exception {
+    public Long signUp(MemberSignUpRequest requestDTO) {
         if (memberRepository.findByEmail(requestDTO.getEmail()).isPresent()){
             throw new EmailAlreadyExistException();
         }

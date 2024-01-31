@@ -30,7 +30,6 @@ public class MemberSignUpRequest {
 
     private Authority authority;
 
-    @Builder
     public Member toEntity(){
         return Member.builder()
                 .email(email)

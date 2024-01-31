@@ -23,7 +23,7 @@ public class MemberController {
     }
 
     @PostMapping("/join")
-    public ResponseEntity<Long> join(@Valid @RequestBody MemberSignUpRequest request) throws Exception {
+    public ResponseEntity<Long> join(@Valid @RequestBody MemberSignUpRequest request) {
         return ResponseEntity.ok(memberService.signUp(request));
     }
 

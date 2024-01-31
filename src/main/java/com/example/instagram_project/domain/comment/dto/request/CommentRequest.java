@@ -2,10 +2,12 @@ package com.example.instagram_project.domain.comment.dto.request;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import lombok.Builder;
 import lombok.Data;
 import org.hibernate.validator.constraints.Length;
 
 @Data
+@Builder
 public class CommentRequest {
 
     @NotNull(message = "게시글의 Id는 필수입니다.")
